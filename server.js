@@ -8,8 +8,8 @@ const
 	MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/react-jwt',
 	PORT = process.env.PORT || 3001,
   usersRoutes = require('./routes/users.js'),
-  // ... other imports 
-   path = require("path");
+  path = require('path');
+  // ... other imports ;
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, (err) => {
 	console.log(err || `Connected to MongoDB.`)
@@ -18,8 +18,9 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, (err) => {
 app.use(logger('dev'))
 app.use(express.json())
 
-// ... other app.use middleware 
-app.use(express.static(path.join(__dirname, "client", "build")))
+/* serves static assets from /client/build */
+app.use(express.static(path.join(__dirname, "client", "build"))); 
+
 
 
 app.get('/api', (req, res) => {
@@ -28,10 +29,9 @@ app.get('/api', (req, res) => {
 
 app.use('/api/users', usersRoutes)
 
-// Right before your app.listen(), add this:
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
+})
 
 app.listen(PORT, (err) => {
 	console.log(err || `Server running on port ${PORT}.`)
