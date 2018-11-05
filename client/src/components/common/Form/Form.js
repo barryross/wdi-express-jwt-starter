@@ -9,12 +9,8 @@ class Form extends Component {
 			user:{
 				email: "",
 				name: "",
-<<<<<<< Updated upstream
 				age: "",
 				password: ""
-=======
-				age: ""
->>>>>>> Stashed changes
 			}
 		
 	}

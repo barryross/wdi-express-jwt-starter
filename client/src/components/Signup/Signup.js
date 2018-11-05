@@ -8,11 +8,7 @@ import httpClient from '../../utilities/httpClient';
 const Signup = (props) => {
 
 	const handleSubmit = async (user) => {
-<<<<<<< Updated upstream
 		let res = await httpClient.authenticate(user, "/api/users", "post");
-=======
-		let res = await httpClient.authenticate(user, "/api/users");
->>>>>>> Stashed changes
 		props.onSignupSuccess();
 		props.history.push('/')
 	}
