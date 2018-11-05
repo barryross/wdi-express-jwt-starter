@@ -15,7 +15,7 @@ httpClient.getToken = function(token) {
 };
 
 // Getting the currentUser
-httpClient.getCurrentUser = function() {
+httpClient.getTokenPayload = function() {
     const token = this.getToken();
     console.log(token);
     if (token) return jwtDecode(token);

@@ -9,12 +9,14 @@ export default ({ currentUser }) => {
                 <span className="nav-link">JWT</span>
                 <Link className="nav-link" to="/">Home</Link>
                 <Link className="nav-link" to="/vip">VIP</Link>
+
             </div>
             <div className="float-right">
                 {currentUser
                     ? (
                         <span>
                             <span className="nav-link">Welcome {currentUser.name}</span>
+														<Link className="nav-link" to="/profile">Profile</Link>
                             <Link className="nav-link" to="/logout">Logout</Link>
                         </span>        
                     )

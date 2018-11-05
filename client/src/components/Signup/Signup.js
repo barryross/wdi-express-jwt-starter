@@ -1,70 +1,23 @@
-import React, { Component } from 'react';
-import Header from '../common/Header/Header';
+import React from 'react'
+import Form from '../common/Form/Form'
+import Header from '../common/Header/Header'
 import httpClient from '../../utilities/httpClient';
 
-class Signup extends Component {
-    state = { 
-        email: "",
-        password: "",
-        name: ""
-    }
 
-    handleChange = (e) => {
-        let { name, value } = e.target;
-        this.setState({ [name]: value });
-    }
 
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        let { email, password, name } = this.state;
-        let user = await httpClient.authenticate({ email, password, name }, "/api/users");
-        this.setState({ email: "", password: "", name: "" });
-        if (user) {
-            this.props.onSignupSuccess();
-            this.props.history.push('/')
-        }
-    }
+const Signup = (props) => {
 
-    render() {
-        let { email, password, name } = this.state;
-        let { handleChange, handleSubmit } = this;
-        return (
-            <div>
-                <Header text={"Signup"}/>
-                <div className="row">
-                    <div className="column column-50 column-offset-25">
-                        <form onSubmit={handleSubmit}>
-                            <label>Name: </label>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Johnny Appleseed"
-                                onChange={handleChange}
-                                value={name}
-                            />
-                            <label>Email: </label>
-                            <input
-                                type="text"
-                                name="email"
-                                placeholder="JohnnyAppleseed@hotmail.com"
-                                onChange={handleChange}
-                                value={email}
-                            />
-                            <label>Password: </label>
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Secret Password..."
-                                onChange={handleChange}
-                                value={password}
-                            />
-                            <input type="submit"/>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+	const handleSubmit = async (user) => {
+		let res = await httpClient.authenticate(user, "/api/users");
+		props.onSignupSuccess();
+		props.history.push('/')
+	}
+	return (
+		<React.Fragment>
+			<Header text={"Signup"}/>
+			<Form onSubmit={handleSubmit}/>
+		</React.Fragment>
+	)
 }
 
-export default Signup;
+export default Signup

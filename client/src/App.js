@@ -5,25 +5,47 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
 import Signup from './components/Signup/Signup';
+import Profile from './components/Profile/Profile';
 import VIP from './components/VIP/VIP';
 import httpClient from './utilities/httpClient';
 import './App.css';
 
 class App extends Component {
-	state = { currentUser: httpClient.getCurrentUser() };
+	state = { 
+		tokenPayload: httpClient.getTokenPayload(), 
+		currentUser:null
+	};
 
-	onAuthSuccess = () => {
-		this.setState({ currentUser: httpClient.getCurrentUser() });
+	componentDidMount(){
+
+		//If token exists, let's call 
+		if (this.state.tokenPayload)	this.getUserInfo()
+	
+	}
+	getUserInfo = async() => {
+		let tokenPayload = httpClient.getTokenPayload()
+		console.log("token pay", tokenPayload)
+
+		let res = await httpClient({ method: "get", url:`/api/users/${tokenPayload._id}` });
+		let user = res.data.payload //parse the response from our /users/:id endpoint
+		this.setState({currentUser: user}) 
+	}
+	onAuthSuccess = async () => {
+		let tokenPayload = httpClient.getTokenPayload()
+		this.setState({ tokenPayload});
+		this.getUserInfo() //On successful auth, let's query the user info and pass it to our components
 	}
 
 	onLogout = () => {
 		httpClient.logOut();
-		this.setState({ currentUser: null });
+		this.setState({ tokenPayload: null, currentUser: null }); //Let's clear out the token and the user
 	}
 
+	
+
   	render() {
-		let { currentUser } = this.state;
-		let { onAuthSuccess, onLogout } = this;
+		let { tokenPayload, currentUser } = this.state;
+		let { onAuthSuccess, onLogout, getUserInfo} = this;
 		return (
 			<Layout currentUser={currentUser}>
 				<Switch>
@@ -37,8 +59,11 @@ class App extends Component {
 					<Route path="/signup" render={(props) => {
 						return <Signup {...props} onSignupSuccess={onAuthSuccess}/>
 					}}/>
+					<Route path="/profile" render={(props) => {
+						return  tokenPayload ? <Profile onUpdateSuccess={getUserInfo} currentUser={currentUser} {...props}/> : <Redirect to="/login"/>
+					}}/>
 					<Route path="/vip" render={() => {
-						return currentUser ?  <VIP/> : <Redirect to="/login"/>
+						return tokenPayload ?  <VIP/> : <Redirect to="/login"/>
 					}}/>
 				</Switch>
 			</Layout>

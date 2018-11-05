@@ -12,7 +12,9 @@ module.exports = {
 
 	// get one user
 	show: (req, res) => {
+    console.log("REQ USER", req.user)
 		User.findById(req.params.id, (err, user) => {
+			delete user.password
 			if(err) return res.json({message: "ERROR", payload: null, code: err.code})
 			res.json({ message: "SUCCESS", payload: user })
 		})
@@ -34,7 +36,7 @@ module.exports = {
 			Object.assign(user, req.body)
 			user.save((err, updatedUser) => {
 				if(err) return res.json({message: "ERROR", payload: null, code: err.code})
-				res.json({ message: "SUCCESS", payload: user })
+				res.json({ message: "SUCCESS", payload: updatedUser })
 			})
 		})
 	},
