@@ -31,7 +31,10 @@ class App extends Component {
 		this.setState({currentUser: user}) 
 	}
 	onAuthSuccess = async () => {
+<<<<<<< Updated upstream
 		alert('auth success')
+=======
+>>>>>>> Stashed changes
 		let tokenPayload = httpClient.getTokenPayload()
 		this.setState({ tokenPayload});
 		this.getUserInfo() //On successful auth, let's query the user info and pass it to our components

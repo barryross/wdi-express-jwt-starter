@@ -9,8 +9,12 @@ class Form extends Component {
 			user:{
 				email: "",
 				name: "",
+<<<<<<< Updated upstream
 				age: "",
 				password: ""
+=======
+				age: ""
+>>>>>>> Stashed changes
 			}
 		
 	}
@@ -37,7 +41,11 @@ class Form extends Component {
     }
 
     render() {
+<<<<<<< Updated upstream
         let { email, name, age, password } = this.state.user;
+=======
+        let { email, name, age } = this.state.user;
+>>>>>>> Stashed changes
         let { handleChange, handleSubmit } = this;
         return (
             <div>
@@ -68,6 +76,7 @@ class Form extends Component {
                                 onChange={handleChange}
                                 value={email}
                             />
+<<<<<<< Updated upstream
 
 														 <label>Password: </label>
                             <input
@@ -77,6 +86,8 @@ class Form extends Component {
                                 onChange={handleChange}
                                 value={password}
                             />
+=======
+>>>>>>> Stashed changes
                            
                             <input type="submit"/>
                         </form>
