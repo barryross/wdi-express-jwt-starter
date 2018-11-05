@@ -17,32 +17,32 @@ class App extends Component {
 	};
 
 	componentDidMount(){
-
-		//If token exists, let's call 
-		if (this.state.tokenPayload)	this.getUserInfo()
-	
+		//If token exists, let's get the user's more complete information 
+		if (this.state.tokenPayload) this.getUserInfo()
 	}
+
 	getUserInfo = async() => {
 		let tokenPayload = httpClient.getTokenPayload()
-		console.log("token pay", tokenPayload)
+		console.log("Token payload", tokenPayload) //Let's see what we get back..notice all the user info isn't there!
 
-		let res = await httpClient({ method: "get", url:`/api/users/${tokenPayload._id}` });
-		let user = res.data.payload //parse the response from our /users/:id endpoint
+		let res = await httpClient({ method: "get", url:`/api/users/${tokenPayload._id}`});
+		let user = res.data.payload //parses the response from our /users/:id endpoint
 		this.setState({currentUser: user}) 
 	}
-	onAuthSuccess = async () => {
+
+	onAuthSuccess = async () => { //Called after login and signup
 		let tokenPayload = httpClient.getTokenPayload()
-		this.setState({ tokenPayload});
+		this.setState({tokenPayload});
 		this.getUserInfo() //On successful auth, let's query the user info and pass it to our components
 	}
 
 	onLogout = () => {
 		httpClient.logOut();
-		this.setState({ tokenPayload: null, currentUser: null }); //Let's clear out the token and the user
+		this.setState({ tokenPayload: null, currentUser: null }); //Let's clear out the token and the user on logout
 	}
 
 	
-
+    //Notice how we use the currentUser object throughout our app hierarchy below
   	render() {
 		let { tokenPayload, currentUser } = this.state;
 		let { onAuthSuccess, onLogout, getUserInfo} = this;
