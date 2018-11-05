@@ -6,8 +6,7 @@ const
 // Function for creating tokens
 function signToken(user) {
 		const userData = user.toObject() // Convert user document from mongo into basic JS Object
-		let usr = {_id:userData._id}
-    // delete userData.password; // Delete the password from the user object.
+		let usr = { _id:userData._id }
     return jwt.sign(usr, JWT_SECRET);
 };
 

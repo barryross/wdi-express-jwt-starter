@@ -5,7 +5,7 @@ const
 	app = express(),
 	logger = require('morgan'),
 	mongoose = require('mongoose'),
-	MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/react-jwt',
+	MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/react-jwt2',
 	PORT = process.env.PORT || 3001,
   usersRoutes = require('./routes/users.js'),
   path = require('path');
@@ -20,7 +20,6 @@ app.use(express.json())
 
 /* serves static assets from /client/build */
 app.use(express.static(path.join(__dirname, "client", "build"))); 
-
 
 
 app.get('/api', (req, res) => {

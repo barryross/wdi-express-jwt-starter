@@ -8,7 +8,7 @@ import httpClient from '../../utilities/httpClient';
 const Signup = (props) => {
 
 	const handleSubmit = async (user) => {
-		let res = await httpClient.authenticate(user, "/api/users");
+		let res = await httpClient.authenticate(user, "/api/users", "post");
 		props.onSignupSuccess();
 		props.history.push('/')
 	}

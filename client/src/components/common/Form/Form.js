@@ -9,7 +9,8 @@ class Form extends Component {
 			user:{
 				email: "",
 				name: "",
-				age: ""
+				age: "",
+				password: ""
 			}
 		
 	}
@@ -36,7 +37,7 @@ class Form extends Component {
     }
 
     render() {
-        let { email, name, age } = this.state.user;
+        let { email, name, age, password } = this.state.user;
         let { handleChange, handleSubmit } = this;
         return (
             <div>
@@ -66,6 +67,15 @@ class Form extends Component {
                                 placeholder="JohnnyAppleseed@hotmail.com"
                                 onChange={handleChange}
                                 value={email}
+                            />
+
+														 <label>Password: </label>
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder=""
+                                onChange={handleChange}
+                                value={password}
                             />
                            
                             <input type="submit"/>
