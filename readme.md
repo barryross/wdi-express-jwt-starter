@@ -3,7 +3,7 @@
 # Key differences between student projects
 
 ### JWT storage
--  The only user info we store in the token is the user's `_id`
+- The only user info we store in the token is the user's `_id`
 - We refer to the decoded version of this as `tokenPayload`
 - We do not re-sign or store the JWT after a user updates their profile 
 
